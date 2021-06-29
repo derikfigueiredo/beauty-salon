@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+ul {
+  list-style: none;
+}
+
 a {
   text-decoration: none;
 }
@@ -17,9 +21,8 @@ img {
 
 /*===== VARIABLES =========*/
 :root {
-  font-size: 25px;
   
-  --hue: 159;
+  --hue: 300;
   /* HSL color mode */
   --base-color: hsl(var(--hue) 36% 57%);
   --base-color-second: hsl(var(--hue) 65% 88%);
@@ -35,9 +38,13 @@ body {
   font: 400 1rem 'DM Sans', sans-serif;
   background: var(--body-color);
   -webkit-font-smoothing: antialiased;
-
 }
-h1 {
+
+html {
+  scroll-behavior: smooth;
+}
+
+.title {
   font: 700 1.875rem 'Poppins', sans-serif;
   color: var(--title-color);
   -webkit-font-smoothing: auto;
@@ -61,8 +68,17 @@ h1 {
 
 .divider-1 {
   height: 1px;
-  background: linear-gradient(270deg, hsl(var(--hue), 36%, 57%, 1) 0%,
-  hsl(var(--hue), 65%, 88%, 0.34) 100%
+  background: linear-gradient(270deg, hsl(var(--hue), 36%, 57%, 1),
+  hsl(var(--hue), 65%, 88%, 0.34)
+  );
+}
+
+.divider-2 {
+  height: 1px;
+  background: linear-gradient(
+    270deg, 
+    hsla(var(--hue), 65%, 88%, 0.34),
+    hsla(var(--hue), 36%, 57%, 1)
   );
 }
 
@@ -72,8 +88,20 @@ h1 {
   margin-bottom: 2rem;
   display: flex;
   width: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: var(--body-color);
+  width: 100%;
 }
 
+main {
+  margin-top: 6rem;
+}
+
+/*====== NAVIGATION ============*/
 nav {
   display: flex;
   justify-content: space-between;
@@ -82,6 +110,71 @@ nav {
   width: 100%;
 }
 
+nav ul li {
+  text-align: center;
+}
+
+nav ul li a {
+  transition: color 0.2s;
+  position: relative;
+}
+
+nav ul li a:hover {
+  color: var(--base-color);
+}
+
+nav ul li a::after {
+  content: '';
+  width: 0;
+  height: 2px;
+  background: var(--base-color);
+
+  position: absolute;
+  left: 0;
+  bottom: -1.5rem;
+
+  transition: width 0.2s;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+nav .menu {
+  position: relative;
+  top: -30rem;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+nav.show .menu {
+  visibility: visible;
+  opacity: 1;
+  background: var(--body-color);
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-content: center;
+}
+
+nav.show .menu ul {
+  display: grid;
+}
+
+nav .menu ul {
+  display: none;
+}
+
+nav.show ul.grid {
+  gap: 4rem;
+}
+
+
+/*====== LOGO =================*/
 .logo {
   font: 700 1.31rem 'Poppins', sans-serif;
   color: var(--title-color);
@@ -103,6 +196,40 @@ nav {
 
 .section {
   padding: 5rem 0;
+}
+
+.section .title {
+  margin-bottom: 1rem;
+}
+
+.section header {
+  margin-bottom: 4rem;
+}
+
+.section header strong {
+  color: var(--base-color);
+}
+
+/*==== toggle menu =====================*/
+.toggle {
+  color: var(--base-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+nav .icon-close {
+  position: absolute;
+  right: 1.5rem;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.2s;
+  top: -1.5rem;
+}
+
+nav.show div.icon-close {
+  visibility: visible;
+  opacity: 1;
+  top: 1.5rem;
 }
 
 /*==== HOME =====================*/
@@ -145,10 +272,103 @@ nav {
   border-radius: 0.25rem;
 }
 
-#home .text h1 {
+#home .text h2 {
   margin-bottom: 1rem;
 }
 
 #home .text p {
   margin-bottom: 2rem;
+  line-height: 1.8rem;
 }
+
+
+/*========== SOBRE NÓS ====================*/
+#about { 
+  overflow: hidden;
+  background-color: #FFF;
+  position: relative;
+  z-index: -1;
+}
+
+#about .container {
+  margin: 0;
+}
+
+#about .text {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+#about .image {
+  position: relative;
+}
+
+#about .image::before {
+  content: '';
+  height: 100%;
+  width: 100%;
+  background: var(--base-color-second);
+  position: absolute;
+  top: -8.4%;
+  left: -33%;
+  z-index: -1;
+}
+
+#about .image image {
+  position: relative;
+  right: 2.93rem;
+}
+
+#about .image image,
+#about .image::before {
+  border-radius: 0.25rem;
+}
+
+#about .text h2 {
+  margin-bottom: 1rem;
+}
+
+#about .text p {
+  margin-bottom: 2rem;
+  line-height: 1.8rem;
+}
+
+/*===== SERVICES ==================================*/
+#services header p {
+  line-height: 1.8rem;
+}
+.cards.grid {
+  gap: 1.5rem;
+}
+
+.card {
+  padding: 3.625rem 2rem;
+  text-align: center;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+  border-bottom: 0.50rem solid var(--base-color);
+  border-radius: 0.25rem 0.25rem 0 0;
+  line-height: 1.8rem;
+}
+
+.card i {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-size: 5rem;
+  color: var(--base-color);
+}
+
+/*
+- CSS ANIMAÇÕES
+- CSS pseudo elementos
+- CSS position
+*/
+
+
+/* 
+************* POSITION ******************
+Static - this is the default value, all elements are in order as they appear in the document.
+Relative - the element is positioned relative to its normal position.
+Absolute - the element is positioned absolutely to its first positioned parent.
+Fixed - the element is positioned related to the browser window.
+Sticky - the element is positioned based on the user's scroll position.
+*/
