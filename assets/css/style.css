@@ -31,6 +31,10 @@ img {
   --text-color: hsl(0 0% 46%);
   --text-color-light: hsl(0 0% 98%);
   --body-color: hsl(0 0% 98%);
+
+  /*fonts*/
+  --title-font-size: 1.875rem;
+  --subtitle-font-size: 1rem;
 }
 
 /*======= BASE =============*/
@@ -38,6 +42,7 @@ body {
   font: 400 1rem 'DM Sans', sans-serif;
   background: var(--body-color);
   -webkit-font-smoothing: antialiased;
+  color: var(--text-color);
 }
 
 html {
@@ -45,7 +50,7 @@ html {
 }
 
 .title {
-  font: 700 1.875rem 'Poppins', sans-serif;
+  font: 700 var(--title-font-size) 'Poppins', sans-serif;
   color: var(--title-color);
   -webkit-font-smoothing: auto;
 }
@@ -95,11 +100,13 @@ html {
   z-index: 100;
   background-color: var(--body-color);
   width: 100%;
+  transition: 0.5s;
 }
 
-main {
-  margin-top: 6rem;
+#header.scroll {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
 }
+
 
 /*====== NAVIGATION ============*/
 nav {
@@ -195,11 +202,15 @@ nav.show ul.grid {
 }
 
 .section {
-  padding: 5rem 0;
+  padding: 9.5rem 0;
 }
 
 .section .title {
   margin-bottom: 1rem;
+}
+
+.section .subtitle {
+  font-size: var(--subtitle-font-size);
 }
 
 .section header {
@@ -258,7 +269,7 @@ nav.show div.icon-close {
   background: var(--base-color-second);
   position: absolute;
   top: -16.8%;
-  left: 16.7%;
+  left: 26.7%;
   z-index: -1;
 }
 
@@ -301,6 +312,7 @@ nav.show div.icon-close {
 
 #about .image {
   position: relative;
+  max-height: 320px;
 }
 
 #about .image::before {
@@ -311,15 +323,14 @@ nav.show div.icon-close {
   position: absolute;
   top: -8.4%;
   left: -33%;
-  z-index: -1;
+  z-index: 0;
 }
 
-#about .image image {
+#about .image img {
   position: relative;
-  right: 2.93rem;
 }
 
-#about .image image,
+#about .image img,
 #about .image::before {
   border-radius: 0.25rem;
 }
@@ -329,9 +340,10 @@ nav.show div.icon-close {
 }
 
 #about .text p {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   line-height: 1.8rem;
 }
+
 
 /*===== SERVICES ==================================*/
 #services header p {
@@ -447,6 +459,10 @@ footer {
   background-color: var(--base-color);
 }
 
+footer.section {
+  padding: 4rem 0;
+}
+
 footer .brand .logo {
   display: inline-block;
   margin-bottom: 1.5rem;
@@ -468,10 +484,151 @@ footer i {
 
 footer .social a {
   margin-right: 2rem;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+footer .social a:hover {
+  transform: translateY(-10px);
+}
+
+
+/* ===== BACK TO TOP ============== */ 
+.back-to-top {
+  background: var(--base-color);
+  color: var(--text-color-light);
+
+  position: fixed;
+  right: 1rem;
+  bottom: 2rem;
+  padding: 1rem;
+  clip-path: circle();
+
+  visibility: hidden;
+  opacity: 0;
+
+  transition: 0.3s;
+  transform: translateY(100%);
+}
+
+.back-to-top.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+/*======== MEDIA QUERIES ==========*/
+/*Breakpoints a seguir*/
+/* extra large devices: 1200 > */
+/* large devices: 1023 > */
+/* large devices: 992 > */
+/* medium devices: 767 > */
+
+@media (min-width: 1200px) {
+  .logo {
+    font: 700 1.7rem 'Poppins', sans-serif;
+  }
+
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  nav .menu {
+    opacity: 1;
+    visibility: visible;
+    top: 0;
+  }
+
+  nav .menu ul {
+    display: flex;
+    gap: 1.8rem;
+  }
+
+  nav ul li a.title {
+    font: 400 1.1rem 'Poppins', sans-serif;
+  }
+
+  nav .icon-menu {
+    display: none;
+  }
+
+  .button {
+    height: 3.125rem;
+  }
+
+  /* HOME */
+  #home .container {
+    grid-auto-flow: column;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+
+  #home .image {
+    order: 1;
+  }
+
+  #home .image img {
+    max-width: 510px;
+  }
+
+  #home .text {
+    order: 0;
+    max-width: 24rem;
+    text-align: left;
+  }
+
+  /* ABOUT */
+  #about .container {
+    grid-auto-flow: column;
+    margin: 0 auto;
+  }
+
+  main {
+    margin-top: 4.5rem;
+  }
+
+  .section header {
+    max-width: 32rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cards.grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  #contact .container {
+    grid-auto-flow: column;
+    align-items: center;
+  }
+
+  #contact .text {
+    max-width: 25rem;
+  }
+
+  footer .container {
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer .logo {
+    font-size: 2.2rem;
+  }
+
+}
+
+@media (min-width: 992px) {
+  :root {
+    --title-font-size: 2.25rem;
+    --subtitle-font-size: 1.125rem;
+  }
 }
 
 /*
-- CSS ANIMAÇÕES
 - CSS pseudo elementos
 - CSS position
 */

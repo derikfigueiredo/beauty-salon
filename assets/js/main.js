@@ -16,6 +16,20 @@ links.forEach((link)=>{
   });
 });
 
+/* mudar o header da página quando der scroll*/
+function changeHeaderWhenScroll() {
+  const header = document.querySelector('#header');
+  const navHeight = header.offsetHeight;
+
+  if(window.scrollY >= navHeight) {
+    header.classList.add('scroll');
+  } else {
+    header.classList.remove('scroll')
+  }
+}
+//A propriedade HTMLElement.offsetHeight é somente leitura e retorna um valor do tipo inteiro a altura de um elemento incluindo  padding-top+padding-bottom+border-top+border-bottom.
+//Retorna o número de pixels que o documento já rolou verticalmente.
+
 /* Testimonials carousel slider swiper*/
 const swiper = new Swiper('.swiper-container', {
   slidesPerView: 1,
@@ -26,6 +40,12 @@ const swiper = new Swiper('.swiper-container', {
   keyboard: true,
   autoplay: {
     delay: 5000
+  },
+  breakpoints: {
+    767: {
+      slidesPerView: 2,
+      setWrapperSize: true
+    }
   }
 });
 
@@ -46,3 +66,20 @@ scrollReveal.reveal(
   footer .brand, footer .social`, 
   {interval: 100}
 )
+
+/* Botão voltar para o topo */
+function backToTop() {
+  const backToTopButton = document.querySelector('.back-to-top');
+
+  if(window.scrollY >= 560) {
+    backToTopButton.classList.add('show')
+  } else {
+    backToTopButton.classList.remove('show')
+  }
+}
+
+/*When scroll*/
+window.addEventListener('scroll', ()=>{
+  changeHeaderWhenScroll() 
+  backToTop() 
+})
